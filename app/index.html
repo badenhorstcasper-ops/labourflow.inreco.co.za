@@ -214,7 +214,7 @@ function getPrompt() {
   }
 }
 
-const API_KEY = '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';
+// API calls now go through Supabase edge function — key stored securely server-side
 const FREE_Q = 5;
 
 function getMonthKey() {
@@ -350,17 +350,13 @@ async function send() {
     return;
   }
   try {
-    var res = await fetch('https://api.anthropic.com/v1/messages', {
+    var res = await fetch('https://ckjevliuwlijfvdjxmmp.supabase.co/functions/v1/super-endpoint', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
-        'x-api-key': API_KEY,
-        'anthropic-version': '2023-06-01',
-        'anthropic-dangerous-direct-browser-access': 'true'
+        'apikey': 'sb_publishable_YKXGk4w0XCwWwvR62HnUjg_ESYokGVd'
       },
       body: JSON.stringify({
-        model: 'claude-sonnet-4-20250514',
-        max_tokens: 1000,
         system: getPrompt(),
         messages: chatHistory
       })
